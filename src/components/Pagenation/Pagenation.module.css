@@ -1,0 +1,32 @@
+.buttons {
+    display: flex;
+    justify-content: center;
+}
+
+button{
+    cursor: pointer;
+    background-color: #152238;
+    border: 1px solid transparent;
+}
+
+
+.buttons .button{
+margin: 5% 0%;
+color: #ffffff;
+margin-left: 3%;
+}
+#prev{
+    height: 3vh;
+    align-self: center;
+}
+
+#next{
+    height: 3vh;
+    align-self: center;
+    margin-left: 3%;
+}
+
+#active{
+   color: #FF6A63;
+    text-decoration: underline;
+}

@@ -1,0 +1,60 @@
+ul {
+    list-style: none;
+}
+
+.card {
+    position: relative;
+    margin-bottom: 26px;
+    margin-right: 14.2px;
+    cursor: pointer;
+}
+
+.cardImg {
+    width: 280px;
+    height: 240px;
+    overflow: hidden;
+}
+
+.cardImg img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+
+.about {
+    width: 280px;
+    height: 65px;
+    padding: 15px;
+    position: absolute;
+    bottom: 0;
+    background: linear-gradient(0deg, #1A2B4A 0%, #2B507C 105.38%);
+    display: flex;
+    justify-content: space-between;
+}
+
+.about ul li:first-child {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 19.6px;
+    color: #FFFFFF;
+    cursor: text;
+}
+
+.about ul li:last-child {
+    cursor: text;
+    margin-top: 3px;
+    font-weight: 400;
+    font-size: 14px;
+    color: #CCCCCC;
+    line-height: 19.6px;
+    display: flex;
+}
+
+.about ul li:last-child span {
+    padding-top: 2%;
+}
+
+.about .moviePlayer{
+    cursor: pointer;
+}
