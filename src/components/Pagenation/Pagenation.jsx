@@ -4,17 +4,21 @@ import NextIcon from '../../assests/next.svg'
 import PrevIcon from '../../assests/previcon.png'
 
 
-const Pagenation = ({ goToCurrentPage, prevPage, nextPage, page }) => {
-    const pages = [1, 2, 3, 4, 5, 6]
+const Pagenation = ({ goToCurrentPage, prevPage, nextPage, page, totalPage, pageLimit }) => {
+
+
+    const getPaginationGroup = () => {
+        let start = Math.floor((page - 1) / pageLimit) * pageLimit;
+        return new Array(pageLimit).fill().map((_, index) => start + index + 1);
+    };
 
     return (
         <>
             <div className={style.buttons}>
                 <button id={style.prev} onClick={prevPage} disabled={page === 1}>
                     <img src={PrevIcon} alt="PreviousIcon" />
-
                 </button>
-                {pages.map((ele, i) => {
+                {getPaginationGroup().map((ele, i) => {
                     return (
                         <button className={style.button} key={i} id={page === ele ? style.active : ""}
                             onClick={() => goToCurrentPage(ele)}>
@@ -22,9 +26,8 @@ const Pagenation = ({ goToCurrentPage, prevPage, nextPage, page }) => {
                         </button>
                     )
                 })}
-                <button id={style.next} onClick={nextPage} disabled={page === 6}>
+                <button id={style.next} onClick={nextPage} disabled={page === totalPage}>
                     <img src={NextIcon} alt="NextIcon" />
-
                 </button>
             </div>
         </>

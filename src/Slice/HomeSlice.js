@@ -8,7 +8,6 @@ const initialState = {
     movies: []
 }
 
-console.log(initialState)
 
 export const fetchMovies = createAsyncThunk('movie/getMovie', async () => {
     const response = await axios.get(`https://api.themoviedb.org/3/trending/movie/day?api_key=36f92e051d1f7b92dd147302b1b51f81&page=${initialState.page}`)

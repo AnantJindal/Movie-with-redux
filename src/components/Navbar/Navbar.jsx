@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import style from './Navbar.module.css'
 import Logo from '../../assests/Logo.svg'
 import SearchIcon from '../../assests/search.svg'
@@ -8,33 +8,31 @@ import { Card } from 'antd';
 
 const Navbar = () => {
     const navigate = useNavigate()
-    
-   
+
+
     const token = localStorage.getItem("token")
 
-    const [apiData, setApiData] = useState([])
     const [value, setValue] = useState("")
     const [suggestion, setSuggestion] = useState([])
+    const [searcheddata, setSearchedData] = useState([])
 
-    useEffect(() => {
-        const fetchApiData = () => {
-            axios.get(`https://api.themoviedb.org/3/trending/movie/day?api_key=36f92e051d1f7b92dd147302b1b51f81`).then((res) => {
-                setApiData(res.data.results)
-            }).catch((err) => {
-                console.log(err)
-            })
-        }
-        fetchApiData()
-    }, [])
 
 
     const onChnagehandeler = (e) => {
         setValue(e.target.value)
 
-        let matches = apiData.filter((movie) => {
-            const regex = RegExp(`${e.target.value}`)
-            return movie.original_title.match(regex)
-        })
+        if (value.length !== 0) {
+
+            axios.get(`https://api.themoviedb.org/3/search/movie?api_key=36f92e051d1f7b92dd147302b1b51f81&language=en-US&query=${value}&include_adult=true`).then((res) => {
+                setSearchedData(res.data.results)
+            }).catch((err) => {
+
+            })
+        }
+
+        let matches = searcheddata.filter((movie) => {
+            const regex = RegExp(`${e.target.value}`, "gi")
+            return movie.original_title.match(regex)        })
         setSuggestion(matches)
     }
 
@@ -47,7 +45,7 @@ const Navbar = () => {
         console.log(value)
     }
 
-    const detailsHandeler = (i) =>{
+    const detailsHandeler = (i) => {
         navigate(`/${i}`)
         setValue("")
     }
@@ -66,16 +64,14 @@ const Navbar = () => {
                             <button onClick={onSearchHandeler}><img src={SearchIcon} alt="searchIcon" /></button>
                         </div>
 
-                        <div className={style.card} style={{zIndex:1}}>
-                        {value.length>0 && suggestion && suggestion.map((ele, i) => {
-                            return (
-                                <>
-                                    <Card bordered={true} onClick={()=>detailsHandeler(ele.id)}>
+                        <div className={style.card} style={{ zIndex: 1 }}>
+                            {value.length > 0 && suggestion && suggestion.map((ele, i) => {
+                                return (
+                                    <Card bordered={true} key={i} onClick={() => detailsHandeler(ele.id)}>
                                         {ele.title}
                                     </Card>
-                                </>
-                            )
-                        })}
+                                )
+                            })}
                         </div>
 
                         <button onClick={removeUser}>Logout</button>
